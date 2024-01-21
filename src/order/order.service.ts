@@ -22,11 +22,11 @@ export class OrderService {
   }
 
   async createOrder(orderData: OrderDto) {
-    orderData.total = await this.calculatePrice(orderData);
+    orderData.total = await this.calculateTotalPrice(orderData);
     return await this.orderModel.create(orderData);
   }
 
-  async calculatePrice(orderData: OrderDto): Promise<number> {
+  async calculateTotalPrice(orderData: OrderDto): Promise<number> {
     const productInfoPromises = orderData.productList.map(async (product) => {
       const productId = product.productId;
       const quantity = product.quantity;
@@ -47,7 +47,7 @@ export class OrderService {
 
   async updateById(id: string, orderData: OrderDto): Promise<Order> {
     if (orderData.productList) {
-      orderData.total = await this.calculatePrice(orderData);
+      orderData.total = await this.calculateTotalPrice(orderData);
     }
     return this.orderModel.findByIdAndUpdate(id, orderData, {
       new: true,
