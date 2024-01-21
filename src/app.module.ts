@@ -12,7 +12,7 @@ import {ConfigModule} from "@nestjs/config";
       envFilePath: '.env',
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.DB.URL)],
+    MongooseModule.forRoot(process.env.DB_URL)],
   controllers: [],
   providers: [],
 })
