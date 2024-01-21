@@ -22,6 +22,11 @@ export class OrderService {
   }
 
   async createOrder(orderData: OrderDto) {
+    orderData.total = await this.calculatePrice(orderData);
+    return await this.orderModel.create(orderData);
+  }
+
+  async calculatePrice(orderData: OrderDto): Promise<number> {
     const productInfoPromises = orderData.productList.map(async (product) => {
       const productId = product.productId;
       const quantity = product.quantity;
@@ -33,17 +38,18 @@ export class OrderService {
 
     const productInfoAndQuantities = await Promise.all(productInfoPromises);
 
-    orderData.total = productInfoAndQuantities.reduce(
+    return productInfoAndQuantities.reduce(
       (total, { productInfo, quantity }) =>
         total + (productInfo?.price ?? 0) * quantity,
       0,
     );
-
-    return await this.orderModel.create(orderData);
   }
 
-  async updateById(id: string, order: Order): Promise<Order> {
-    return this.orderModel.findByIdAndUpdate(id, order, {
+  async updateById(id: string, orderData: OrderDto): Promise<Order> {
+    if (orderData.productList) {
+      orderData.total = await this.calculatePrice(orderData);
+    }
+    return this.orderModel.findByIdAndUpdate(id, orderData, {
       new: true,
       runValidators: true,
     });
