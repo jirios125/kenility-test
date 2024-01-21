@@ -4,6 +4,6 @@ import { ManagementController } from './management.controller';
 
 @Module({
   providers: [ManagementService],
-  controllers: [ManagementController]
+  controllers: [ManagementController],
 })
 export class ManagementModule {}
