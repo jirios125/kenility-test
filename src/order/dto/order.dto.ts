@@ -8,7 +8,6 @@ import {
   IsObject,
   ValidateNested,
 } from 'class-validator';
-import { ProductDto } from '../../product/dto/product.dto';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -32,13 +31,11 @@ export class OrderDto {
   clientName: string;
 
   @ApiProperty({
-    description: 'The total amount to pay for the Order',
+    description:
+      'The total amount to pay for the Order. This is auto calculated by the order service',
     type: Number,
-    default: 10000,
-    minimum: 1,
   })
   @IsNumber()
-  @IsNotEmpty()
   total: number;
 
   @ApiProperty({
@@ -50,6 +47,6 @@ export class OrderDto {
   @ArrayNotEmpty()
   @IsObject({ each: true })
   @ValidateNested({ each: true })
-  @Type(() => ProductDto)
-  productList: ProductDto[];
+  @Type(() => Object)
+  productList: { productId: string; quantity: number }[];
 }
