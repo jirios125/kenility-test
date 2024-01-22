@@ -67,4 +67,13 @@ export class OrderService {
         .find({createdAt: {$gte: lastMonth}})
         .then((orders) => orders.reduce((acc, order) => acc + order.total, 0));
   }
+
+  async getHighestSale(): Promise<number> {
+    const highestSaleOrder = await this.orderModel
+        .findOne()
+        .sort({ total: -1 })
+        .limit(1);
+
+    return highestSaleOrder ? highestSaleOrder.total : 0;
+  }
 }
