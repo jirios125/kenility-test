@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema()
+@Schema({
+  timestamps: true,
+})
 export class Order {
   @Prop({ required: true, unique: true })
   identifier: string;

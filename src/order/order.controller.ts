@@ -22,6 +22,12 @@ export class OrderController {
     return this.orderService.findAll();
   }
 
+  @Get('/total-sold-lm')
+  async getTotalAmountSoldLastMonth(): Promise<{ totalAmount: number }> {
+    const totalAmount = await this.orderService.getTotalAmountSoldLastMonth();
+    return { totalAmount };
+  }
+
   @Post()
   async createOrder(
     @Body()
