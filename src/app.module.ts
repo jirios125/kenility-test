@@ -14,7 +14,7 @@ import { AuthMiddleware } from './user/middleware/auth.middleware';
       envFilePath: '.env',
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.DB_URL),
+    MongooseModule.forRoot('mongodb://mongodb:27017/kenility-test'), //Use process.env.DB_URL if want to test it locally
     UserModule,
   ],
   controllers: [],
