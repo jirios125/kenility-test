@@ -5,7 +5,7 @@ import { ProductSchema } from './product.schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { OrderService } from '../order/order.service';
 import { OrderSchema } from '../order/order.schema';
-import {MulterModule} from "@nestjs/platform-express";
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -13,7 +13,7 @@ import {MulterModule} from "@nestjs/platform-express";
       { name: 'Product', schema: ProductSchema },
       { name: 'Order', schema: OrderSchema },
     ]),
-    MulterModule.register({dest: "./uploads"})
+    MulterModule.register({ dest: './uploads' }),
   ],
   providers: [ProductService, OrderService],
   controllers: [ProductController],

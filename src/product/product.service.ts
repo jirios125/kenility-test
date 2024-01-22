@@ -22,8 +22,8 @@ export class ProductService {
     return await this.productModel.create(product);
   }
 
-  async uploadImg(id: string, img: string): Promise<Product>{
-    const product: Product = await this.findById(id)
+  async uploadImg(id: string, img: string): Promise<Product> {
+    const product: Product = await this.findById(id);
     product.img = img;
     return this.productModel.findByIdAndUpdate(id, product, {
       new: true,

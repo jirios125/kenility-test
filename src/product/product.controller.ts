@@ -8,7 +8,9 @@ import {
   Param,
   Post,
   Put,
-  Request, UploadedFile, UseInterceptors,
+  Request,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { Product } from './product.schema';
@@ -18,8 +20,8 @@ import { OrderDto } from '../order/dto/order.dto';
 import { Order } from '../order/order.schema';
 import { OrderService } from '../order/order.service';
 import { ExpressRequest } from '../user/middleware/auth.middleware';
-import {FileInterceptor} from "@nestjs/platform-express";
-import * as fs from "fs";
+import { FileInterceptor } from '@nestjs/platform-express';
+import * as fs from 'fs';
 
 @ApiTags('Products')
 @Controller('product')
@@ -39,7 +41,7 @@ export class ProductController {
   }
 
   @Post()
-  @UseInterceptors(FileInterceptor("file"))
+  @UseInterceptors(FileInterceptor('file'))
   async createProduct(
     @Request() request: ExpressRequest,
     @UploadedFile() file,
@@ -49,12 +51,11 @@ export class ProductController {
     if (!request.user) {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
-    if(file){
-      product.img = this.convertFileToBase64(file)
+    if (file) {
+      product.img = this.convertFileToBase64(file);
     }
     return this.productService.create(product);
   }
-
 
   @Post('req')
   async requestProduct(
@@ -69,7 +70,7 @@ export class ProductController {
   }
 
   @Put(':id')
-  @UseInterceptors(FileInterceptor("file"))
+  @UseInterceptors(FileInterceptor('file'))
   async updateProduct(
     @Request() request: ExpressRequest,
     @UploadedFile() file,
@@ -81,8 +82,8 @@ export class ProductController {
     if (!request.user) {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
-    if(file){
-      product.img = this.convertFileToBase64(file)
+    if (file) {
+      product.img = this.convertFileToBase64(file);
     }
     return this.productService.updateById(id, product);
   }
