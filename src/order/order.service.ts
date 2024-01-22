@@ -1,9 +1,9 @@
-import {Injectable} from '@nestjs/common';
-import {InjectModel} from '@nestjs/mongoose';
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import {Order} from './order.schema';
-import {OrderDto} from './dto/order.dto';
-import {ProductService} from '../product/product.service';
+import { Order } from './order.schema';
+import { OrderDto } from './dto/order.dto';
+import { ProductService } from '../product/product.service';
 
 @Injectable()
 export class OrderService {
@@ -64,15 +64,15 @@ export class OrderService {
     lastMonth.setMonth(lastMonth.getMonth() - 1);
 
     return await this.orderModel
-        .find({createdAt: {$gte: lastMonth}})
-        .then((orders) => orders.reduce((acc, order) => acc + order.total, 0));
+      .find({ createdAt: { $gte: lastMonth } })
+      .then((orders) => orders.reduce((acc, order) => acc + order.total, 0));
   }
 
   async getHighestSale(): Promise<number> {
     const highestSaleOrder = await this.orderModel
-        .findOne()
-        .sort({ total: -1 })
-        .limit(1);
+      .findOne()
+      .sort({ total: -1 })
+      .limit(1);
 
     return highestSaleOrder ? highestSaleOrder.total : 0;
   }
