@@ -14,7 +14,7 @@ import { AuthMiddleware } from './user/middleware/auth.middleware';
       envFilePath: '.env',
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.DB_URL), //Use process.env.DB_URL if want to test it locally 'mongodb://mongodb:27017/kenility-test'
+    MongooseModule.forRoot(process.env.DB_URL), //Use 'mongodb://mongodb:27017/kenility-test' if you want to run in using docker-compose
     UserModule,
   ],
   controllers: [],
