@@ -10,7 +10,7 @@ export class Product {
   @Prop({ required: true })
   SKU: string;
 
-  @Prop({ required: true })
+  @Prop()
   img: string;
 
   @Prop({ required: true })
