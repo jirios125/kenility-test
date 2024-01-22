@@ -11,11 +11,14 @@ import { ProductService } from './product.service';
 import { Product } from './product.schema';
 import { ProductDto } from './dto/product.dto';
 import { ApiTags } from '@nestjs/swagger';
+import {OrderDto} from "../order/dto/order.dto";
+import {Order} from "../order/order.schema";
+import {OrderService} from "../order/order.service";
 
 @ApiTags('Products')
 @Controller('product')
 export class ProductController {
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private orderService: OrderService) {}
 
   @Get()
   async getAll(): Promise<Product[]> {
@@ -28,6 +31,14 @@ export class ProductController {
     product: ProductDto,
   ): Promise<Product> {
     return this.productService.create(product);
+  }
+
+  @Post("req")
+  async requestProduct(
+      @Body()
+          order: OrderDto,
+  ): Promise<Order> {
+    return this.orderService.createOrder(order);
   }
 
   @Put(':id')
