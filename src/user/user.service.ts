@@ -23,16 +23,6 @@ export class UserService {
     return this.userModel.findOne({ username }).exec();
   }
 
-  async validate(username: string, password: string): Promise<User> {
-    const user = await this.findOne(username);
-
-    if (user && (await compare(password, user.password))) {
-      return user;
-    }
-
-    throw new UnauthorizedException('Invalid password/credentials');
-  }
-
   async createUser(userDto: UserDto): Promise<User> {
     const { username, password } = userDto;
 
