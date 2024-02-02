@@ -7,7 +7,8 @@ import {
 } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { compare, bcrypt } from 'bcrypt';
+import { compare } from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 import { User } from './user.schema';
 import { UserDto } from './dto/user.dto';
 import { UserResponse } from './dto/user.response';
